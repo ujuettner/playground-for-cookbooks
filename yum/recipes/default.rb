@@ -1,5 +1,5 @@
 execute 'clean-yum-cache' do
-  command 'rm -f /var/lib/rpm/__db* && rpm –rebuilddb && yum clean all'
+  command 'rm -f /var/lib/rpm/__db* && rpm --rebuilddb && yum clean all'
   action :run
 end
 
