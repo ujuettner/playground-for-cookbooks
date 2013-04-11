@@ -15,7 +15,7 @@ remote_file '/etc/yum.repos.d/boundary.repo' do
   source 'https://yum.boundary.com/boundary_centos6_64bit.repo'
   mode '00644'
   action :create_if_missing
-  notifies :run, resource(:execute => 'clean-yum-cache'), :immediately
-  notifies :create, resource(:ruby_block => 'reload-internal-yum-cache'), :immediately
+  notifies :run, resources(:execute => 'clean-yum-cache'), :immediately
+  notifies :create, resources(:ruby_block => 'reload-internal-yum-cache'), :immediately
 end
 
