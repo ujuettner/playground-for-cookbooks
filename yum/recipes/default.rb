@@ -1,6 +1,12 @@
+
+yum_package 'bprobe' do
+    action :nothing
+end
+
 execute 'clean-yum-cache' do
   command 'rm -f /var/lib/rpm/__db* && rpm --rebuilddb && yum clean all && rm -rf /var/cache/yum && yum makecache && yum check && repoquery --disablerepo=* --enablerepo=boundary -a'
   action :nothing
+  notifies :install, resources(:yum_package => 'bprobe'), :immediately
 end
 
 execute 'enable-repo' do
@@ -13,9 +19,5 @@ remote_file '/etc/yum.repos.d/boundary.repo' do
   mode '0644'
   action :create_if_missing
   notifies :run, resources(:execute => 'clean-yum-cache'), :immediately
-end
-
-yum_package 'bprobe' do
-    action :install
 end
 
