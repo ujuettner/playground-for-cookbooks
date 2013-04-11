@@ -6,7 +6,7 @@ end
 yum_repo.run_action(:create_if_missing)
 
 clean_yum_cache = execute 'clean-yum-cache' do
-  command 'rm -f /var/lib/rpm/__db* && rpm --rebuilddb && yum clean all && rm -rf /var/cache/yum && yum makecache && yum check && yum-config-manager --quiet --enable boundary && repoquery --disablerepo=* --enablerepo=boundary -a'
+  command 'rm -f /var/lib/rpm/__db* && rpm --rebuilddb && yum clean all && rm -rf /var/cache/yum && yum makecache && yum check && yum-config-manager --quiet --enable boundary && repoquery --disablerepo=* --enablerepo=boundary -a && yum info bprobe'
   action :nothing
 end
 clean_yum_cache.run_action(:run)
