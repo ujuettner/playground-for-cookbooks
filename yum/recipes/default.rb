@@ -18,3 +18,6 @@ remote_file '/etc/yum.repos.d/boundary.repo' do
   notifies :create, resources(:ruby_block => 'reload-internal-yum-cache'), :immediately
 end
 
+yum_package 'bprobe' do
+  action :install
+end
