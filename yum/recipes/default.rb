@@ -6,12 +6,12 @@ end
 yum_repo.run_action(:create_if_missing)
 
 clean_yum_cache = execute 'clean-yum-cache' do
-  command 'rm -f /var/lib/rpm/__db* && rpm --rebuilddb && yum clean all && rm -rf /var/cache/yum && yum makecache && yum check && yum-config-manager --quiet --enable boundary && repoquery --disablerepo=* --enablerepo=boundary -a && yum info bprobe'
+  command 'echo "== REMOVE RPM DB ===" && rm -f /var/lib/rpm/__db* && echo "=== REBUILD RPM DB ===" & rpm --rebuilddb && echo "=== YUM CLEAN ALL ===" && yum clean all && echo "=== REMOVE YUM CACHE ===" && rm -rf /var/cache/yum && echo "=== CREATE YUM CACHE ===" && yum makecache && echo "=== CHECK YUM ===" && yum check && echo "=== ENABLE REPO ===" && yum-config-manager --quiet --enable boundary && echo "=== QUERY NEW REPO ===" && repoquery --disablerepo=* --enablerepo=boundary -a && echo "=== YUM PKG INFO ===" && yum info bprobe'
   action :nothing
 end
 clean_yum_cache.run_action(:run)
 
-yum_package 'bprobe' do
+package 'bprobe' do
     action :install
 end
 
