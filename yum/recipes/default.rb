@@ -3,7 +3,7 @@ execute 'reload-external-yum-cache' do
   action :nothing
 end
 
-ruby_block "reload-internal-yum-cache" do
+ruby_block 'reload-internal-yum-cache' do
   block do
     Chef::Provider::Package::Yum::YumCache.instance.reload
   end
