@@ -1,0 +1,4 @@
+#!/bin/bash
+
+ls -la <%= node[:mysql][:datadir] %>
+chown -R <%= node[:mysql][:user] %>:<%= node[:mysql][:user] %> <%= node[:mysql][:datadir] %>
