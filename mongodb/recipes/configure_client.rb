@@ -7,7 +7,7 @@ node['deploy'].each do |application, deploy|
   current_dir = ::File.join(deploy['deploy_to'], 'current')
 
   db_url = {}
-  db_url['dbUrl'] = node['opsworks']['layers']['mongodb']['instances'].map{|k,v| "mongodb://#{v['ip']}:27017/todo?auto_reconnect"}
+  db_url['dbUrl'] = node['opsworks']['layers']['mongodb']['instances'].map{|k,v| "#{v['private_ip']}:27017/?auto_reconnect=true"}
 
   template ::File.join(current_dir, 'mongo.json') do
     source 'mongo.json.erb'
