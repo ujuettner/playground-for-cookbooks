@@ -6,14 +6,14 @@ node['deploy'].each do |application, deploy|
 
   current_dir = ::File.join(deploy['deploy_to'], 'current')
 
-  db_url = {}
-  db_url['dbUrl'] = node['opsworks']['layers']['mongodb']['instances'].map{|k,v| "#{v['private_ip']}:27017/?auto_reconnect=true"}
+  mongo_config = {}
+  mongo_config['dbUrl'] = node['opsworks']['layers']['mongodb']['instances'].map{|k,v| "#{v['private_ip']}:27017/?auto_reconnect=true"}
 
   template ::File.join(current_dir, 'mongo.json') do
     source 'mongo.json.erb'
     mode '0644'
     variables({
-      db_url => db_url.to_json
+      :mongo_config => mongo_config.to_json
     })
   end
 end
