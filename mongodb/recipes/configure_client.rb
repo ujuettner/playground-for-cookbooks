@@ -1,5 +1,5 @@
 execute 'kill node process' do
-  command 'pkill node'
+  command 'pkill node; /bin/true'
   action :nothing
 end
 
