@@ -15,7 +15,6 @@ end
 execute 'reconfigure Replica Set' do
   command "#{mongo_cmd_base} #{replset_reconfig_js}"
   action :nothing
-  not_if { is_first_mongodb_node_me }
 end
 
 template "#{::File.join(node['mongodb']['confdir'], 'replset_reconfig.js')}" do
