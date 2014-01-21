@@ -19,3 +19,4 @@ default['mongodb']['bind_ip'] = node['ipaddress']
 default['mongodb']['port'] = '27017'
 default['mongodb']['rest'] = true
 default['mongodb']['journal'] = true
+default['mongodb']['replica_set'] = ''
