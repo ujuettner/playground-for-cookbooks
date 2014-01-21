@@ -1,3 +1,8 @@
+execute 'kill node process' do
+  command 'pkill node'
+  action :nothing
+end
+
 node['deploy'].each do |application, deploy|
   unless deploy['application_type'] == 'nodejs' && deploy['application'] == node['mongodb']['app_name']
     Chef::Log.debug("Skipping application #{application} as we're not intereseted in it.")
@@ -20,5 +25,6 @@ node['deploy'].each do |application, deploy|
     variables({
       :mongo_config => mongo_config.to_json
     })
+    notifies :run, 'execute[kill node process]'
   end
 end
