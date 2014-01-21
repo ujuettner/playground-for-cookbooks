@@ -5,4 +5,4 @@ bind_ip = <%= node['mongodb']['bind_ip'] %>
 port = <%= node['mongodb']['port'] %>
 rest = <%= node['mongodb']['rest'] %>
 journal = <%= node['mongodb']['journal'] %>
-<%= 'replSet = ' node['mongodb']['replica_set'] unless node['mongodb']['replica_set'].empty? %>
+<%= "replSet = #{node['mongodb']['replica_set']}" unless node['mongodb']['replica_set'].empty? %>
