@@ -1,6 +1,6 @@
-if (db.isMaster().ismaster) {
-  print("Master!");
-  rs.reconfig(<%= @rs_conf %>);
+if (db.isMaster().setName && !db.isMaster().secondary) {
+  print("replSet name set and not secondary!");
+  rs.reconfig(<%= @rs_conf %>, {force: true});
 } else {
-  print("Not master!");
+  print("Secondary or replSet name not set.");
 }
