@@ -1,0 +1,6 @@
+if (db.isMaster().ismaster) {
+  print("Master!");
+  rs.reconfig(<%= @rs_conf %>);
+} else {
+  print("Not master!");
+}
