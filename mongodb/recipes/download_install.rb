@@ -24,9 +24,3 @@ ruby_block 'install binaries' do
     end
   end
 end
-
-%w(mongo bson_ext).each do |gem|
-  gem_package gem do
-    action :install
-  end
-end

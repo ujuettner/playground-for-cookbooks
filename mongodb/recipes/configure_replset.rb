@@ -1,3 +1,10 @@
+%w(bson_ext mongo).each do |gem|
+  chef_gem gem do
+    action :install
+  end
+end
+require 'mongo'
+
 instances = node['opsworks']['layers']['mongodb']['instances']
 is_first_mongodb_node_me = (instances.keys.size == 1 && instances.keys.first == node['opsworks']['instance']['hostname'])
 mongo_cmd_base = "#{::File.join(node['mongodb']['bindir'], 'mongo')} #{node['mongodb']['bind_ip']}"
@@ -14,9 +21,6 @@ end
 
 ruby_block 'initiate Replica Set' do
   block do
-    require 'mongo'
-    include Mongo
-
     MongoReplSet.initiate node['opsworks']['instance']['hostname'] if is_first_mongodb_node_me
   end
 end
