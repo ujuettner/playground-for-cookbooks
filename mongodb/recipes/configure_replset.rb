@@ -14,6 +14,9 @@ end
 
 ruby_block 'initiate Replica Set' do
   block do
+    require 'mongo'
+    include Mongo
+
     MongoReplSet.initiate node['opsworks']['instance']['hostname'] if is_first_mongodb_node_me
   end
 end

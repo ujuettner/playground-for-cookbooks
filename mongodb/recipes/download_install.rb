@@ -27,6 +27,6 @@ end
 
 %w(mongo bson_ext).each do |gem|
   gem_package gem do
-    gem_binary '/usr/local/bin/gem'
+    action :install
   end
 end
