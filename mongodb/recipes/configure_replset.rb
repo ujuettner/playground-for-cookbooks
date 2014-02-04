@@ -12,30 +12,36 @@ node['opsworks']['layers']['mongodb']['instances'].each_with_index do |(k,v),i|
   rs_conf['members'] << member
 end
 
-execute 'reconfigure Replica Set' do
-  command "#{mongo_cmd_base} #{replset_reconfig_js}"
-  action :nothing
-end
-
-template "#{::File.join(node['mongodb']['confdir'], 'replset_reconfig.js')}" do
-  source 'replset_reconfig.js.erb'
-  mode '0644'
-  variables({
-    :rs_conf => rs_conf.to_json
-  })
-  action :nothing
-  notifies :run, 'execute[reconfigure Replica Set]'
-end
-
 ruby_block 'initiate Replica Set' do
   block do
-    if is_first_mongodb_node_me
-      Chef::Log.debug('Seem to be the first MongoDB node online - initiating Replica Set ...')
-      system("#{mongo_cmd_base} --eval 'rs.initiate()'")
-    else
-      Chef::Log.debug('I am not the first MongoDB node online - waiting to be added the Replica Set by the Primary ...')
-    end
+    MongoReplSet.initiate node['opsworks']['instance']['hostname'] if is_first_mongodb_node_me
   end
-  not_if { node['mongodb']['replica_set'].empty? }
-  notifies :create, "template[#{::File.join(node['mongodb']['confdir'], 'replset_reconfig.js')}]"
 end
+
+#execute 'reconfigure Replica Set' do
+#  command "#{mongo_cmd_base} #{replset_reconfig_js}"
+#  action :nothing
+#end
+#
+#template "#{::File.join(node['mongodb']['confdir'], 'replset_reconfig.js')}" do
+#  source 'replset_reconfig.js.erb'
+#  mode '0644'
+#  variables({
+#    :rs_conf => rs_conf.to_json
+#  })
+#  action :nothing
+#  notifies :run, 'execute[reconfigure Replica Set]'
+#end
+#
+#ruby_block 'initiate Replica Set' do
+#  block do
+#    if is_first_mongodb_node_me
+#      Chef::Log.debug('Seem to be the first MongoDB node online - initiating Replica Set ...')
+#      system("#{mongo_cmd_base} --eval 'rs.initiate()'")
+#    else
+#      Chef::Log.debug('I am not the first MongoDB node online - waiting to be added the Replica Set by the Primary ...')
+#    end
+#  end
+#  not_if { node['mongodb']['replica_set'].empty? }
+#  notifies :create, "template[#{::File.join(node['mongodb']['confdir'], 'replset_reconfig.js')}]"
+#end
