@@ -21,7 +21,7 @@ end
 
 ruby_block 'initiate Replica Set' do
   block do
-    MongoReplSet.initiate node['opsworks']['instance']['hostname'] if is_first_mongodb_node_me
+    MongoReplSet.initiate(node['mongodb']['bind_ip'], node['mongodb']['port']) if is_first_mongodb_node_me
   end
 end
 
