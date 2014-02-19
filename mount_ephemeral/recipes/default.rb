@@ -9,6 +9,7 @@ node["filesystem"].each do |device, filesystem|
 
   mount mount_point do
     device device
+    option "defaults,nobootwait"
     action [:mount, :enable]
   end
 end
