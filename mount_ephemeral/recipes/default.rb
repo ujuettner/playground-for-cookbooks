@@ -1,7 +1,7 @@
 node["filesystem"].each do |device, filesystem|
   next if filesystem["mount"]
 
-  mount_point = device.gsub("/", "_")
+  mount_point = "/#{device.gsub("/", "_")}"
 
   directory mount_point do
     action :create
