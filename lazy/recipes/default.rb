@@ -1,13 +1,17 @@
-file_content = 'old content'
+data_from_json = {}
 
-ruby_block 'set file content' do
+cookbook_file 'input.json' do
+  path '/tmp/some.json'
+end
+
+ruby_block 'parse JSON' do
   block do
-    file_content = 'new content'
+    data_from_json = JSON.parse(::File.read('/tmp/some.json'))
   end
 end
 
-file '/tmp/some_file' do
-  owner 'root'
-  group 'root'
-  content lazy { file_content }
+Chef::Log.debug "XXX: #{data_from_json.inspect}"
+package 'xxx' do
+  package_name lazy { data_from_json['package_name'] }
+  action :install
 end
