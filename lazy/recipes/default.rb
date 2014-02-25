@@ -10,7 +10,6 @@ ruby_block 'parse JSON' do
   end
 end
 
-Chef::Log.debug "XXX: #{data_from_json.inspect}"
 package 'xxx' do
   package_name lazy { data_from_json['package_name'] }
   action :install
