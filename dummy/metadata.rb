@@ -1,1 +1,1 @@
-depends 'opsworks_java::tomcat_service'
+depends 'opsworks_java'
