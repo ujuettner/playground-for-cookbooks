@@ -3,7 +3,6 @@ if node['opsworks']['instance']['layers'].include?('java-app')
 
   execute "trigger #{node['opsworks_java']['java_app_server']} service restart" do
     command '/bin/true'
-    not_if { node['opsworks_java'][node['opsworks_java']['java_app_server']]['auto_deploy'].to_s == 'true' }
     notifies :restart, "service[#{node['opsworks_java']['java_app_server']}]", :immediately
   end
 end
