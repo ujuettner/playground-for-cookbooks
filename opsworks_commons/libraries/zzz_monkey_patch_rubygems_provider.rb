@@ -40,7 +40,7 @@ class Chef
             # So, try to execute the commandline with an added help flag to
             # mitigate possible damages.
             # This can be DANGEROUS!
-            system("#{cmd} --help > /dev/null 2>&1")
+            system("#{commandline} --help > /dev/null 2>&1")
           end
         end
 
