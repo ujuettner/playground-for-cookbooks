@@ -53,21 +53,7 @@ Chef::Log.debug "OOO0: #{gem_binary}"
           def installed_versions(name, requirement)
             if gem_installed?(name, requirement)
               Chef::Log.info "Gem #{name} (#{requirement}) found in OpsWorks user space."
-#Chef::Log.debug "EEE0: #{Gem::Specification.find_all.inspect}"
-              # from rubygems/specification.rb#find_all_by_name
-#              x = Gem::Dependency.new(name, requirement)
-#x.default_executable = '/usr/local/rbenv/shims/gem'
-#Chef::Log.debug "DDD0: #{name} ||| #{requirement} ||| #{x.inspect} ||| #{x.requirement} ||| #{x.matching_specs}"
-#              x.matching_specs
-#x
-###Gem::Specification.find_all_by_name(name, requirement)
-#Gem::Specification.new(name, requirement)
-[Gem::Specification.new(name)]
-#spec = Gem::Specification.new do |s|
-#s.name = name
-##s.version = Gem::Version.new(requirement)
-#end
-#[spec]
+              [Gem::Specification.new(name)]
             else
               Chef::Log.debug "Gem #{name} (#{requirement}) not found in OpsWorks user space."
               []
