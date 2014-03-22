@@ -20,7 +20,7 @@ class Chef
           # [Gem::Specification]  an array of Gem::Specification objects
           def installed_versions(gem_dep)
             # @gem_binary_location is defined in Chef::Resource::GemPackage
-            if @gem_binary_location.present? && correct_commandline?(@gem_binary_location)
+            if @gem_binary_location.present? && (::File.exists?(@gem_binary_location) || working_gem_commandline?(@gem_binary_location))
                 OpsWorksUserSpaceGems.new(@gem_binary_location).installed_versions(
                   gem_dep.name,
                   gem_dep.requirement
@@ -34,7 +34,12 @@ class Chef
 
           private
 
-          def correct_commandline?(command_line)
+          def working_gem_commandline?(command_line)
+            # rbenv substitutes the call to the plain gem binary with a
+            # complexer commandline consisting of ENV var settings etc.
+            # So, try to execute the commandline with an added help flag to
+            # mitigate possible damages.
+            # This can be DANGEROUS!
             system("#{cmd} --help > /dev/null 2>&1")
           end
         end
