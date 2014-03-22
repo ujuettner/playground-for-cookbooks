@@ -34,7 +34,7 @@ class Chef
 
           private
 
-          def working_gem_commandline?(command_line)
+          def working_gem_commandline?(commandline)
             # rbenv substitutes the call to the plain gem binary with a
             # complexer commandline consisting of ENV var settings etc.
             # So, try to execute the commandline with an added help flag to
