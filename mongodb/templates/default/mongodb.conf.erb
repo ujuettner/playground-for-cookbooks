@@ -1,8 +1,0 @@
-dbpath = <%= node['mongodb']['dbpath'] %>
-logpath = <%= node['mongodb']['log_filename'] %>
-logappend = <%= node['mongodb']['logappend'] %>
-bind_ip = <%= node['mongodb']['bind_ip'] %>
-port = <%= node['mongodb']['port'] %>
-rest = <%= node['mongodb']['rest'] %>
-journal = <%= node['mongodb']['journal'] %>
-<%= "replSet = #{node['mongodb']['replica_set']}" unless node['mongodb']['replica_set'].empty? %>
