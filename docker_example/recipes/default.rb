@@ -1,6 +1,5 @@
-docker_image 'centos'
+docker_image node['opsworks_docker']['image']
 
-docker_container 'centos' do
+docker_container node['opsworks_docker']['image'] do
   detach true
-  volume '/mnt/docker:/docker-storage'
 end
