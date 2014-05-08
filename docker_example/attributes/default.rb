@@ -1,1 +1,1 @@
-default['opsworks_docker']['image'] = 'centos'
+default['opsworks_docker']['images'] = []

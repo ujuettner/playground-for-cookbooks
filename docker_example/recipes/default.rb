@@ -1,5 +1,7 @@
-docker_image node['opsworks_docker']['image']
+node['opsworks_docker']['images'].each do |image|
+  docker_image image
 
-docker_container node['opsworks_docker']['image'] do
-  detach true
+  docker_container image do
+    detach true
+  end
 end
