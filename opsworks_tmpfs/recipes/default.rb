@@ -9,7 +9,7 @@
       "mode=#{node[:opsworks_tmpfs][dir][:mode]}",
       "uid=#{node[:opsworks_tmpfs][dir][:uid]}",
       "gid=#{node[:opsworks_tmpfs][dir][:gid]}"
-    ].join
+    ].join(',')
     action   [:mount, :enable]
   end
 end
