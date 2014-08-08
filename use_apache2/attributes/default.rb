@@ -1,0 +1,11 @@
+default[:myapp][:apache][:docroot] = "/srv/www/myapp"
+default[:myapp][:apache][:port] = 80
+default[:myapp][:routed_port] = 8081
+default[:myapp][:apache][:server_name] = "whatever.org"
+default[:myapp][:apache][:max] = 1024
+default[:myapp][:apache][:ttl] = 1024
+default[:myapp][:apache][:acquire] = 1024
+default[:myapp][:apache][:retrytimeout] = 1024
+default[:myapp][:apache][:connectiontimeout] = 1024
+default[:myapp][:apache][:requesttimeout] = 1024
+default[:myapp][:apache][:base_uri] = "/"

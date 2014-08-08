@@ -1,0 +1,6 @@
+<VirtualHost *:80>
+  ServerName 127.0.0.1
+  ServerAdmin ops@example.com
+
+  DocumentRoot <%= node[:myapp][:apache][:docroot] %>
+</VirtualHost>
