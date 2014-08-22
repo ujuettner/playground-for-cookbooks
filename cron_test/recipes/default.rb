@@ -1,5 +1,5 @@
 cron "first task" do
-  path "/usr/bin:/usr/local/bin"
+  path "/usr/local/bin:$PATH"
   minute "*/2"
   command "cd /srv/www/myapp/current && bundle exec ruby -v > /tmp/first_task 2>&1"
 end
