@@ -42,5 +42,4 @@ ruby_block "Update autofs configuration" do
     handle_to_master.write_file
   end
   notifies :restart, "service[autofs]", :immediately
-  not_if { ::File.read("/etc/auto.master").include?("#{node[:opsworks_initial_setup][:autofs_map_file]} -t 3600 -n 0") }
 end
