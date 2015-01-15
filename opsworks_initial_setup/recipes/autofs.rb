@@ -39,3 +39,15 @@ ruby_block "Update autofs configuration" do
   notifies :restart, "service[autofs]", :immediately
   not_if { ::File.read('/etc/auto.master').include?('auto.opsworks') }
 end
+
+ruby_block "Patch autofs configuration" do
+  block do
+    handle_to_master = Chef::Util::FileEdit.new("/etc/auto.master")
+    handle_to_master.search_file_replace_line(
+      /\A\/- #{node[:opsworks_initial_setup][:autofs_map_file]}/,
+      "/- #{node[:opsworks_initial_setup][:autofs_map_file]} -t 3600 -n 0"
+    )
+    handle_to_master.write_file
+  end
+  notifies :restart, "service[autofs]", :immediately
+end
