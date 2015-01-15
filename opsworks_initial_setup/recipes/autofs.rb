@@ -34,7 +34,7 @@ ruby_block "Update autofs configuration" do
       node[:opsworks_initial_setup][:autofs_map_file],
       "/- #{node[:opsworks_initial_setup][:autofs_map_file]} -t 3600 -n 0"
     )
-    # fix entries without "-n 0"
+    # ensure to fix entries without "-n 0"
     handle_to_master.search_file_replace_line(
       /\A\s*\/-\s+#{node[:opsworks_initial_setup][:autofs_map_file]}/,
       "/- #{node[:opsworks_initial_setup][:autofs_map_file]} -t 3600 -n 0"
